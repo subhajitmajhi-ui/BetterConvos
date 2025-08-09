@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BottomNavBar from '../components/BottomNavBar';
 
 const dummyStories = [
   { id: '1', name: 'You', image: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' } },
@@ -125,16 +126,9 @@ export default function HomeScreen({ route }: HomeScreenProps) {
       />
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <Text style={styles.bottomNavIcon}>🏠</Text>
-        <Text style={styles.bottomNavIcon}>🔍</Text>
-        <Text style={styles.bottomNavIcon}>❤️</Text>
-        <Text style={styles.bottomNavIcon}>👥</Text>
-        {/* <Image
-          source={require('../assets/profile.png')}
-          style={styles.bottomProfilePic}
-        /> */}
-      </View>
+      <BottomNavBar onTabPress={(tab) => {
+        // handle tab navigation here
+      }} />
     </View>
   );
 }
