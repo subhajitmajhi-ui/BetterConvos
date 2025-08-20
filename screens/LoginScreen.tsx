@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import {
-  View,
+  StyleSheet,
   Text,
+  View,
   TextInput,
   TouchableOpacity,
   Image,
-  StyleSheet,
-  SafeAreaView,
+  KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -17,6 +18,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // Define your stack param list
 type RootStackParamList = {
   Home: { userName: string };
+  ForgotPassword: undefined;
   // add other routes here if needed
 };
 
@@ -99,7 +101,7 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
     </SafeAreaView>

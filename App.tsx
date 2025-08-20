@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import SearchScreen from './screens/SearchScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import GroupsScreen from './screens/GroupsScreen';
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Groups" component={GroupsScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
