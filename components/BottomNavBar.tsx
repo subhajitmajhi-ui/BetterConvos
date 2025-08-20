@@ -27,7 +27,8 @@ export default function BottomNavBar({ onTabPress, activeTab }: { onTabPress?: (
         <Image source={require('../assets/icons/people_main.png')} style={styles.iconBottomBar} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => onTabPress?.('profile')}>
-        <Icon name="account-circle-outline" size={35} color={activeTab === 'profile' ? '#E94057' : '#A0A0A0'} />
+        {/* <Icon name="account-circle-outline" size={35} color={activeTab === 'profile' ? '#E94057' : '#A0A0A0'} /> */}
+        <Image source={require('../assets/icons/pexel.png')} style={styles.iconBottomBar} />
       </TouchableOpacity>
       </View>
     </LinearGradient>
