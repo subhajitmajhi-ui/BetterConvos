@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import {
   View,
@@ -8,7 +10,8 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MainContainer from '../components/MainContainer';
 import Header from '../components/Header';
 import LinearGradient from 'react-native-linear-gradient';
@@ -28,8 +31,6 @@ const dummyStories = [
   { id: '10', name: 'Eva', image: { uri: 'https://randomuser.me/api/portraits/women/10.jpg' } }
 ];
 
-
-
 const categories = [
   { id: '1', name: 'Dating', active: true },
   { id: '2', name: 'Serious', active: false },
@@ -40,34 +41,42 @@ const categories = [
   { id: '7', name: 'Fun two', active: false },
 ];
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Search: undefined;
+  Favorites: undefined;
+  Groups: undefined;
+  Profile: undefined;
+  ForgotPassword: undefined;
+  Quiz: undefined;
+};
 
 export default function HomeScreen() {
   const userName = 'User';
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
   const handleCategoryPress = (category: any) => {
-    // Handle category selection here
     console.log('Category pressed:', category.name);
+  };
+
+  const handleQuizPress = () => {
+    navigation.navigate('Quiz');
   };
 
   return (
     <MainContainer activeTab="home">
-      <ScrollView 
+      <ScrollView
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }} // extra space at bottom
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
         <View style={styles.content}>
-          {/* Header */}
           <Header userName={userName} />
-
-          {/* Stories */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.storiesRow}>
             {dummyStories.map((story) => (
               <View key={story.id} style={styles.storyItem}>
-                <View
-                  style={styles.storyBorder}
-                >
+                <View style={styles.storyBorder}>
                   <View style={styles.storyInner}>
                     <Image source={story.image} style={styles.storyImage} />
                   </View>
@@ -77,12 +86,11 @@ export default function HomeScreen() {
             ))}
           </ScrollView>
 
-          {/* For You */}
           <Text style={styles.sectionTitle}>For You</Text>
-      <LinearGradient
-        colors={['#E94057', '#F27121']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
+          <LinearGradient
+            colors={['#E94057', '#F27121']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             style={styles.quizCard}
           >
             <View style={styles.quizCardContainer}>
@@ -95,13 +103,12 @@ export default function HomeScreen() {
                 <Text style={styles.quizOption}>C. Proven Success</Text>
                 <Text style={styles.quizOption}>D. All of the above</Text>
               </View>
-              <TouchableOpacity style={styles.quizButton}>
+              <TouchableOpacity style={styles.quizButton} onPress={handleQuizPress}>
                 <Text style={styles.quizButtonText}>Start Quiz</Text>
               </TouchableOpacity>
             </View>
-      </LinearGradient>
+          </LinearGradient>
 
-          {/* Categories */}
           <View style={styles.categoriesRow}>
             <Text style={styles.sectionTitle}>Categories</Text>
             <TouchableOpacity>
@@ -109,13 +116,12 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
 
-          <CategoryList 
+          <CategoryList
             categories={categories}
             onCategoryPress={handleCategoryPress}
           />
 
-          {/* Question Packs */}
-          <QuestionPacks 
+          <QuestionPacks
             onSeeAllPress={() => console.log('See all question packs pressed')}
           />
         </View>
