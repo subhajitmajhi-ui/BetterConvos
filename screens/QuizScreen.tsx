@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Quiz = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
@@ -96,14 +97,23 @@ const Quiz = () => {
         <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
       </View>
       <Text style={styles.question}>{questions[currentQuestion].question}</Text>
+      <View style={styles.questionSection}>
       {questions[currentQuestion].answers.map((answer, index) => (
         <TouchableOpacity key={index} style={styles.answerButton}>
           <Text style={styles.answerButtonText}>{answer}</Text>
         </TouchableOpacity>
       ))}
-      <TouchableOpacity style={styles.nextButton} onPress={nextQuestion}>
-        <Text style={styles.nextButtonText}>Next</Text>
+      <TouchableOpacity onPress={nextQuestion}>
+        <LinearGradient
+          colors={['#E02441', '#F66734']}
+          style={styles.nextButton}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <Text style={styles.nextButtonText}>Next</Text>
+        </LinearGradient>
       </TouchableOpacity>
+      </View>
       {currentQuestion !== 0 && (
         <TouchableOpacity style={[styles.backButton]} onPress={previousQuestion}>
           <Icon name="chevron-left" size={30} color="#CACED2" />
@@ -117,8 +127,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
     paddingTop: 60,
+    backgroundColor: '#FFFFFF',
   },
   headingText: {
     fontSize: 22,
@@ -139,6 +149,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#E02441',
     borderRadius: 24,
   },
+  questionSection: {
+    paddingHorizontal: 40,
+  },
   questionText: {
     fontSize: 14,
     color: '#57636C',
@@ -153,10 +166,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   answerButton: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F6F6F6',
     padding: 16,
-    borderRadius: 24,
-    marginTop: 12,
+    borderRadius: 10,
+    marginBottom: 12,
   },
   answerButtonText: {
     fontSize: 16,
@@ -164,10 +177,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   nextButton: {
-    backgroundColor: '#F44336',
-    padding: 16,
-    borderRadius: 24,
+    // padding: 16,
+    // borderRadius: 24,
     marginTop: 30,
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: 50,
+    width: '100%',
+    height: 64,
   },
   nextButtonText: {
     fontSize: 18,
