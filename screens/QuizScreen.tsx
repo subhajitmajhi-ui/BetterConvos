@@ -2,17 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Home: undefined;
-  Login: undefined;
-  Search: undefined;
-  Favorites: undefined;
-  Groups: undefined;
-  Profile: undefined;
-  ForgotPassword: undefined;
-  Quiz: undefined;
-};
+import { RootStackParamList } from '../types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Quiz = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
@@ -96,13 +87,14 @@ const Quiz = () => {
           <Text style={styles.headerText}>Do this later</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleClose}>
-          <Text style={styles.closeButton}>X</Text>
+          <Icon name="window-close" size={30} color="#D2D6D9" />
         </TouchableOpacity>
       </View>
+      <Text style={styles.headingText}>Describe Your Personality</Text>
+      <Text style={styles.questionText}>Question {currentQuestion + 1}/10</Text>
       <View style={styles.progressBar}>
         <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
       </View>
-      <Text style={styles.questionText}>Question {currentQuestion + 1}/10</Text>
       <Text style={styles.question}>{questions[currentQuestion].question}</Text>
       {questions[currentQuestion].answers.map((answer, index) => (
         <TouchableOpacity key={index} style={styles.answerButton}>
@@ -114,7 +106,7 @@ const Quiz = () => {
       </TouchableOpacity>
       {currentQuestion !== 0 && (
         <TouchableOpacity style={[styles.backButton]} onPress={previousQuestion}>
-          <Text style={styles.backButtonText}>Back</Text>
+          <Icon name="chevron-left" size={30} color="#CACED2" />
         </TouchableOpacity>
       )}
     </View>
@@ -128,27 +120,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 60,
   },
+  headingText: {
+    fontSize: 22,
+    fontWeight: '400',
+    textAlign: 'center',
+    color: '#000000',
+    marginTop: 17,
+    marginBottom: 52,
+  },
   progressBar: {
-    height: 8,
-    backgroundColor: '#E0E0E0',
-    borderRadius: 4,
-    marginTop: 20,
+    height: 12,
+    backgroundColor: '#EBECEF',
+    borderRadius: 24,
+    marginBottom: 32,
   },
   progressBarFill: {
-    height: 8,
-    backgroundColor: '#F44336',
-    borderRadius: 4,
+    height: 12,
+    backgroundColor: '#E02441',
+    borderRadius: 24,
   },
   questionText: {
     fontSize: 14,
-    color: '#757575',
-    marginTop: 30,
+    color: '#57636C',
+    fontWeight: '500',
+    marginBottom: 5,
   },
   question: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginTop: 10,
+    fontSize: 24,
+    fontWeight: '700',
+    marginBottom: 55,
     color: '#212121',
+    textAlign: 'center',
   },
   answerButton: {
     backgroundColor: '#F5F5F5',
@@ -174,16 +176,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   backButton: {
-    backgroundColor: '#F5F5F5',
-    padding: 16,
-    borderRadius: 24,
-    marginTop: 12,
-  },
-  backButtonText: {
-    fontSize: 18,
-    color: '#424242',
-    fontWeight: '500',
-    textAlign: 'center',
+    marginTop: 30,
+    marginLeft: -20,
   },
   disabledButton: {
     backgroundColor: '#E0E0E0',
@@ -197,7 +191,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 16,
-    color: '#757575',
+    fontWeight: '400',
+    color: '#716E6E',
   },
   closeButton: {
     fontSize: 20,

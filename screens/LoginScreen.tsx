@@ -14,13 +14,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-// Define your stack param list
-type RootStackParamList = {
-  Home: { userName: string };
-  ForgotPassword: undefined;
-  // add other routes here if needed
-};
+import { RootStackParamList } from '../types';
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +24,7 @@ export default function LoginScreen() {
 
   const handleSignIn = () => {
     // Dummy check, always navigates to Home
-    navigation.navigate('Home', { userName: 'Dylan' });
+    navigation.navigate('Home');
   };
 
   return (

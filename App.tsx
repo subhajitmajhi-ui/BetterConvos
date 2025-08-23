@@ -17,8 +17,9 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import GroupsScreen from './screens/GroupsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Quiz from './screens/QuizScreen';
+import { RootStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (

@@ -17,6 +17,7 @@ import Header from '../components/Header';
 import LinearGradient from 'react-native-linear-gradient';
 import CategoryList from '../components/CategoryList';
 import QuestionPacks from '../components/QuestionPacks';
+import { RootStackParamList } from '../types';
 
 const dummyStories = [
   { id: '1', name: 'You', image: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' } },
@@ -40,17 +41,6 @@ const categories = [
   { id: '6', name: 'Fun', active: false },
   { id: '7', name: 'Fun two', active: false },
 ];
-
-type RootStackParamList = {
-  Home: undefined;
-  Login: undefined;
-  Search: undefined;
-  Favorites: undefined;
-  Groups: undefined;
-  Profile: undefined;
-  ForgotPassword: undefined;
-  Quiz: undefined;
-};
 
 export default function HomeScreen() {
   const userName = 'User';
