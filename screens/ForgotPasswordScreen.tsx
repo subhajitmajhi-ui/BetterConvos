@@ -11,20 +11,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-  Search: undefined;
-  Favorites: undefined;
-  Groups: undefined;
-  Profile: undefined;
-  ForgotPassword: undefined;
-};
+import { RootStackParamList } from '../types';
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('');
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>();
 
   const handleSendLink = () => {
     // Implement your password reset logic here
