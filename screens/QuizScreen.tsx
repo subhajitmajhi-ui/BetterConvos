@@ -5,12 +5,21 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import Popup from '../components/Popup';
+import { useEffect } from 'react';
 
 const Quiz = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (currentQuestion === 0) {
+      setShowPopup(true);
+    }
+  }, [currentQuestion]);
 
   const previousQuestion = () => {
     if (currentQuestion > 0) {
@@ -81,8 +90,15 @@ const Quiz = () => {
     navigation.navigate('Home');
   };
 
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <View style={styles.container}>
+      {showPopup && (
+        <Popup onClose={handleClosePopup} />
+      )}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleClose}>
           <Text style={styles.headerText}>Do this later</Text>
