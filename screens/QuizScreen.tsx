@@ -1,9 +1,31 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Search: undefined;
+  Favorites: undefined;
+  Groups: undefined;
+  Profile: undefined;
+  ForgotPassword: undefined;
+  Quiz: undefined;
+};
 
 const Quiz = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [progress, setProgress] = useState(0);
+
+  const previousQuestion = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+      setProgress(progress - 10);
+    }
+  };
 
   const questions = [
     {
@@ -63,8 +85,20 @@ const Quiz = () => {
     }
   };
 
+  const handleClose = () => {
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleClose}>
+          <Text style={styles.headerText}>Do this later</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleClose}>
+          <Text style={styles.closeButton}>X</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.progressBar}>
         <View style={[styles.progressBarFill, { width: `${progress}%` }]} />
       </View>
@@ -78,6 +112,11 @@ const Quiz = () => {
       <TouchableOpacity style={styles.nextButton} onPress={nextQuestion}>
         <Text style={styles.nextButtonText}>Next</Text>
       </TouchableOpacity>
+      {currentQuestion !== 0 && (
+        <TouchableOpacity style={[styles.backButton]} onPress={previousQuestion}>
+          <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -87,6 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
+    paddingTop: 60,
   },
   progressBar: {
     height: 8,
@@ -132,6 +172,37 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '500',
     textAlign: 'center',
+  },
+  backButton: {
+    backgroundColor: '#F5F5F5',
+    padding: 16,
+    borderRadius: 24,
+    marginTop: 12,
+  },
+  backButtonText: {
+    fontSize: 18,
+    color: '#424242',
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  disabledButton: {
+    backgroundColor: '#E0E0E0',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  headerText: {
+    fontSize: 16,
+    color: '#757575',
+  },
+  closeButton: {
+    fontSize: 20,
+    color: '#757575',
+    fontWeight: 'bold',
   },
 });
 
